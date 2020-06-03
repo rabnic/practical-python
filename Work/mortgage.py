@@ -25,7 +25,11 @@ while principal > 0:
             break
         total_paid += payment
     month += 1
-    print(f"{month} {round(total_paid, 2)} {round(principal, 2)}")
+    month_str = str(month)
+    total_paid_str = str(round(total_paid, 2))
+    principal_str = str(round(principal, 2))
+    # Format output to be in fixed tabular form
+    print(f"{month_str :5s} {total_paid_str:12s} {principal_str:10s}")
 
-print(f"Total paid: {round(total_paid, 2)}")
-print(f"Months {month}")
+print(f"{'Total paid':10s} :{round(total_paid, 2)}")
+print(f"{'Months':10s} :{month}")
