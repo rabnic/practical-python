@@ -1,4 +1,5 @@
 import csv
+import sys
 
 
 # Display total formatted
@@ -29,4 +30,4 @@ def portfolio_cost(csv_file):
     return total_amount
 
 
-display_total(portfolio_cost('Data/portfolio.csv'))
+display_total(portfolio_cost(sys.argv[1]))
