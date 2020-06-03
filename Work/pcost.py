@@ -15,11 +15,14 @@ def portfolio_cost(csv_file):
         # Discard the titles
         headers = next(file)
         # Iterate over the stocks and sum all
-        for line in file:
-            stock_line = line.split(sep=',')
-            shares = int(stock_line[1])
-            price = float(stock_line[2])
-            total_amount += shares * price
+        try:
+            for line in file:
+                stock_line = line.split(sep=',')
+                shares = int(stock_line[1])
+                price = float(stock_line[2])
+                total_amount += shares * price
+        except ValueError:
+            print('Invalid portfolio data structure')
     return total_amount
 
 
