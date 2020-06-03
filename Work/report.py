@@ -51,5 +51,8 @@ line = "-"
 print(f"{headers[0]:>10s} {headers[1]:>10s} {headers[2]:>10s} {headers[3]:>10s}")
 print(f"{line*10} {line*10} {line*10} {line*10}")
 
+currency = 'R'
+
 for name, shares, price, change in make_report(portfolio_out, prices_out):
-    print(f"{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}")
+    price = str(round(price, 2))
+    print(f"{name:>10s} {shares:>10d} {currency + price:>10s} {change:>10.2f}")
