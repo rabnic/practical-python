@@ -45,6 +45,11 @@ def make_report(portfolio, prices):
 portfolio_out = read_portfolio("Data/portfolio.csv")
 prices_out = read_prices("Data/prices.csv")
 
+# Display the output in neat aligned tabular form
+headers = ("Name", "Shares", "Price", "Change")
+line = "-"
+print(f"{headers[0]:>10s} {headers[1]:>10s} {headers[2]:>10s} {headers[3]:>10s}")
+print(f"{line*10} {line*10} {line*10} {line*10}")
 
 for name, shares, price, change in make_report(portfolio_out, prices_out):
     print(f"{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}")
