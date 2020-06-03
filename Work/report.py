@@ -28,17 +28,23 @@ def read_prices(prices_file):
     return price_dict
 
 
-portfolio = read_portfolio("Data/portfolio.csv")
-prices = read_prices("Data/prices.csv")
+def make_report(portfolio, prices):
+    """
+    Generate report of stocks profit to current prices
+    :param portfolio:
+    :param prices:
+    :return: list of tuples stock share price from initial purchase
+    """
+    share_price_list = []
+    for stock in portfolio:
+        share_price_list.append((stock['name'], stock['shares'], prices[stock['name']],
+                                 prices[stock['name']] - stock['price']))
+    return share_price_list
 
-# Calculate the total cost of portfolio
-total_cost = sum([stock['shares'] * stock['price'] for stock in portfolio])
-print(f'Total cost: R{total_cost}')
 
-# Get the current value of portfolio
-total_value = 0.0
-for stock in portfolio:
-    total_value += stock['shares'] * prices[stock['name']]
+portfolio_out = read_portfolio("Data/portfolio.csv")
+prices_out = read_prices("Data/prices.csv")
 
-print(f'Current value: R{total_value}')
-print(f'Gain :R{total_value - total_cost:.2f}')
+
+for name, shares, price, change in make_report(portfolio_out, prices_out):
+    print(f"{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}")
