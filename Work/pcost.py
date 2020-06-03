@@ -1,3 +1,6 @@
+import csv
+
+
 # Display total formatted
 def display_total(total):
     print(f'Total cost: R{total:.2f}')
@@ -11,15 +14,15 @@ def portfolio_cost(csv_file):
     """
     # Initialise total to R0.0
     total_amount = 0.0
-    with open(csv_file, 'rt') as file:
+    with open(csv_file) as file:
+        rows = csv.reader(file)
         # Discard the titles
-        headers = next(file)
+        headers = next(rows)
         # Iterate over the stocks and sum all
         try:
-            for line in file:
-                stock_line = line.split(sep=',')
-                shares = int(stock_line[1])
-                price = float(stock_line[2])
+            for line in rows:
+                shares = int(line[1])
+                price = float(line[2])
                 total_amount += shares * price
         except ValueError:
             print('Invalid portfolio data structure')
