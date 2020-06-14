@@ -22,9 +22,10 @@ def portfolio_cost(csv_file):
         # Iterate over the stocks and sum all
         try:
             for row_num, row in enumerate(rows, start=1):
+                record = dict(zip(headers, row))
                 try:
-                    shares = int(row[1])
-                    price = float(row[2])
+                    shares = int(record['shares'])
+                    price = float(record['price'])
                     total_amount += shares * price
                 except ValueError:
                     print(f"Row {row_num}: Could not covert: {row}")
