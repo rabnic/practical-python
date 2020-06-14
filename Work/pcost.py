@@ -21,10 +21,13 @@ def portfolio_cost(csv_file):
         headers = next(rows)
         # Iterate over the stocks and sum all
         try:
-            for line in rows:
-                shares = int(line[1])
-                price = float(line[2])
-                total_amount += shares * price
+            for row_num, row in enumerate(rows, start=1):
+                try:
+                    shares = int(row[1])
+                    price = float(row[2])
+                    total_amount += shares * price
+                except ValueError:
+                    print(f"Row {row_num}: Could not covert: {row}")
         except ValueError:
             print('Invalid portfolio data structure')
     return total_amount
