@@ -1,7 +1,7 @@
 import csv
 
 
-def read_portfolio(portfolio_file):
+def read_portfolio(portfolio_file) -> list:
     """
     :param portfolio_file:
     :return: list of dicts for stock portfolio read from file given
@@ -17,9 +17,8 @@ def read_portfolio(portfolio_file):
     return portfolio_list
 
 
-def read_prices(prices_file):
+def read_prices(prices_file) -> dict:
     """
-
     :param prices_file:
     :return: dict of stock prices where key=stock name and value=price
     """
@@ -29,7 +28,7 @@ def read_prices(prices_file):
     return price_dict
 
 
-def make_report(portfolio, prices):
+def make_report(portfolio, prices) -> list:
     """
     Generate report of stocks profit to current prices
     :param portfolio:
@@ -43,17 +42,29 @@ def make_report(portfolio, prices):
     return share_price_list
 
 
+def display_headers(headers_in):
+    """
+    Display the headers and line dividers of fixed size
+    :param headers_in:
+    """
+    print('%10s %10s %10s %10s' % headers_in)
+    print(('-' * 10 + ' ') * len(headers_in))
+
+
+def print_report(portfolio):
+    """
+    Display the full portfolio report in a tabular form
+    :param portfolio of stocks
+    """
+    currency = 'R'
+    for name, shares, price, change in portfolio:
+        price = str(round(price, 2))
+        print(f"{name:>10s} {shares:>10d} {currency + price:>10s} {change:>10.2f}")
+
+
 portfolio_out = read_portfolio("Data/portfolio.csv")
 prices_out = read_prices("Data/prices.csv")
-
-# Display the output in neat aligned tabular form
 headers = ("Name", "Shares", "Price", "Change")
-line = "-"
-print(f"{headers[0]:>10s} {headers[1]:>10s} {headers[2]:>10s} {headers[3]:>10s}")
-print(f"{line*10} {line*10} {line*10} {line*10}")
 
-currency = 'R'
-
-for name, shares, price, change in make_report(portfolio_out, prices_out):
-    price = str(round(price, 2))
-    print(f"{name:>10s} {shares:>10d} {currency + price:>10s} {change:>10.2f}")
+display_headers(headers)
+print_report(make_report(portfolio_out, prices_out))
