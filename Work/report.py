@@ -62,9 +62,20 @@ def print_report(portfolio):
         print(f"{name:>10s} {shares:>10d} {currency + price:>10s} {change:>10.2f}")
 
 
-portfolio_out = read_portfolio("Data/portfolio.csv")
-prices_out = read_prices("Data/prices.csv")
-headers = ("Name", "Shares", "Price", "Change")
+def portfolio_report(portfolio_filename, prices_filename):
+    """
 
-display_headers(headers)
-print_report(make_report(portfolio_out, prices_out))
+    :param portfolio_filename:
+    :param prices_filename:
+    :return:
+    """
+    portfolio_out = read_portfolio(portfolio_filename)
+    prices_out = read_prices(prices_filename)
+
+    headers = ("Name", "Shares", "Price", "Change")
+
+    display_headers(headers)
+    print_report(make_report(portfolio_out, prices_out))
+
+
+portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
